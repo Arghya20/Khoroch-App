@@ -187,14 +187,32 @@
 
     </LinearLayout>
 
-
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom|center"
-        android:text="Made with ❤️ by Arghya"
-        android:textColor="#999999"
-        android:textSize="12sp" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/khoroch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/ag"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:text="Khoroch"
+            android:textColor="#EFF0E8"
+            android:textSize="42sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="Made with ❤️ by Arghya"
+            android:textColor="#999999"
+            android:textSize="12sp" />
+    </RelativeLayout>
 
 
 </LinearLayout>
