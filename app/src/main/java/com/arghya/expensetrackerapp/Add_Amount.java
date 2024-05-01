@@ -28,15 +28,20 @@ import kotlin.jvm.internal.markers.KMutableSet;
 
 public class Add_Amount extends AppCompatActivity {
 
-    TextView addTextTV;
+
+    TextView addTextTv;
     TextInputEditText amountEditText, reasonEditText;
     TextInputLayout amountInputLayout;
     AppCompatButton btnAdd;
+    DatabaseHelper dbHelper;
+
+    public static boolean isExpense = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+//        EdgeToEdge.enable(this);
         setContentView(R.layout.add_amount);
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
 //            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -44,12 +49,22 @@ public class Add_Amount extends AppCompatActivity {
 //            return insets;
 //        });
 
-        addTextTV = findViewById(R.id.addTextTV);
+        addTextTv = findViewById(R.id.addTextTV);
         amountEditText = findViewById(R.id.amountEditText);
         amountInputLayout = findViewById(R.id.amountInputLayout);
         reasonEditText = findViewById(R.id.reasonEditText);
         btnAdd = findViewById(R.id.btnAdd);
+        dbHelper = new DatabaseHelper(this);
 
+
+        if (isExpense) {
+            addTextTv.setText("Add Your Expense");
+            btnAdd.setText("Add Expense");
+        } else {
+            addTextTv.setText("Add Your Income");
+            btnAdd.setText("Add Income");
+
+        }
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,31 +75,39 @@ public class Add_Amount extends AppCompatActivity {
 
 
                 if (!amount.isEmpty()) {
-                    amountInputLayout.setError(null);
+                    try {
+                        double doubleAmount = Double.parseDouble(amount);
+                        amountInputLayout.setError(null);
 
+                        if (isExpense) {
+                            dbHelper.addExpense(doubleAmount, reason);
+                        } else {
+                            dbHelper.addIncome(doubleAmount, reason);
+                        }
 
-                    // Vibrate the phone
-                    Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-                    if (vibrator != null) {
-                        vibrator.vibrate(20); // Vibrate for 100 milliseconds
+                        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+                        if (vibrator != null) {
+                            vibrator.vibrate(20);
+                        }
+
+                        Toast.makeText(Add_Amount.this, "Amount: " + amount + ", Reason: " + reason, Toast.LENGTH_SHORT)
+                                .show();
+
+                        amountEditText.setText("");
+                        reasonEditText.setText("");
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(Add_Amount.this, "Invalid amount format", Toast.LENGTH_SHORT)
+                                .show();
                     }
-
-                    // Show toast with amount and reason
-                    Toast.makeText(Add_Amount.this, " Amount is - " + amount + " & reason is - " + reason, Toast.LENGTH_SHORT)
-                            .show();
-
-                    amountEditText.setText(null);
-                   reasonEditText.setText(null);
-
                 } else {
                     amountInputLayout.setError("Enter Amount");
-
                 }
-
-
             }
         });
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
