@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         showAllIncome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ShowAllData.Expense = false;
                 startActivity(new Intent(MainActivity.this, ShowAllData.class));
             }
         });
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         showAllExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ShowAllData.Expense = true;
                 startActivity(new Intent(MainActivity.this, ShowAllData.class));
             }
         });

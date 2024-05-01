@@ -12,10 +12,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@drawable/show_all_data_header_corner_rounded">
+        android:layout_height="110dp"
+        android:background="@drawable/show_all_data_header_corner_rounded"
+        android:paddingTop="10dp"
+        android:layout_marginBottom="6dp">
 
         <TextView
+            android:id="@+id/showAllDataTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -26,87 +29,13 @@
 
     </LinearLayout>
 
-
-    <LinearLayout
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:padding="8dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/show_all_data_card_design">
-
-            <TextView
-                android:id="@+id/spendingTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="18dp"
-                android:text="Restaurant Dinner"
-                android:textColor="#FFE9E9"
-                android:textSize="22sp"
-                android:textStyle="normal" />
-
-            <TextView
-                android:id="@+id/spendingAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="14dp"
-                android:gravity="center"
-                android:text="- ₹600"
-                android:textColor="#fff"
-                android:textSize="32sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/timeAndDate"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="28dp"
-                android:layout_marginBottom="12dp"
-                android:gravity="bottom"
-                android:text="10:20 am . 10 apr 2024"
-                android:textColor="#FFDADA"
-                android:textSize="14sp"
-                android:textStyle="normal" />
-
-
-            <LinearLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginRight="20dp"
-                android:gravity="center"
-
-
-                >
-
-                <LinearLayout
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:background="@drawable/rounded_delete_button"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/delete_white"
-
-                        />
-                </LinearLayout>
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:listSelector="@android:color/transparent"
+        android:layout_marginBottom="10dp"
+        />
 
 
 </LinearLayout>

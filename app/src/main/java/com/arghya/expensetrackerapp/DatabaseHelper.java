@@ -84,4 +84,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return totalExpense;
     }
 
+
+    //    ======================================= Get All Income Data  ======================================================
+    public Cursor getAllIncomeData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from income", null);
+        return cursor;
+    }
+
+    //    ======================================= Get All Expense Data  ======================================================
+    public Cursor getAllExpenseData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from expense", null);
+        return cursor;
+    }
+
+
+
+
 }
