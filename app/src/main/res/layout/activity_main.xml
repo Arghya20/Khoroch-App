@@ -139,7 +139,7 @@
                 android:id="@+id/totalExpense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/incomeText"
+                android:layout_above="@+id/expenseText"
                 android:gravity="center"
                 android:text="₹3800"
                 android:textColor="#ffff"
@@ -147,7 +147,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/incomeText"
+                android:id="@+id/expenseText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"

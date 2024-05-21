@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPostResume() {
+    protected void onResume() {
         super.onPostResume();
         TotalIncome();
         TotalExpense();

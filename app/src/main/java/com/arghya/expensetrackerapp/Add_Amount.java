@@ -90,7 +90,7 @@ public class Add_Amount extends AppCompatActivity {
                             vibrator.vibrate(20);
                         }
 
-                        Toast.makeText(Add_Amount.this, "Amount: " + amount + ", Reason: " + reason, Toast.LENGTH_SHORT)
+                        Toast.makeText(Add_Amount.this, amount+" Added ", Toast.LENGTH_SHORT)
                                 .show();
 
                         amountEditText.setText("");

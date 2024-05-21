@@ -5,19 +5,20 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F7FF"
+    android:background="#FDFFEF"
     android:orientation="vertical"
     tools:context=".ShowAllData">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="140dp"
         android:background="@drawable/show_all_data_header_corner_rounded"
         android:paddingTop="10dp"
         android:layout_marginBottom="6dp">
 
         <TextView
+            android:layout_marginTop="8dp"
             android:id="@+id/showAllDataTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

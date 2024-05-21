@@ -88,18 +88,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //    ======================================= Get All Income Data  ======================================================
     public Cursor getAllIncomeData() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from income", null);
+        Cursor cursor = db.rawQuery("select * from income order by id desc", null);
         return cursor;
     }
 
     //    ======================================= Get All Expense Data  ======================================================
     public Cursor getAllExpenseData() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from expense", null);
+        Cursor cursor = db.rawQuery("select * from expense order by id desc", null);
         return cursor;
     }
 
+    //    ======================================= Delete Expense ==============================================================
+    public void deleteExpense(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from expense where id like " + id);
+    }
 
+    //    ======================================= Delete Income ==============================================================
+    public void deleteIncome(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from income where id like " + id);
+    }
 
 
 }

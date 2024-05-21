@@ -1,11 +1,14 @@
 package com.arghya.expensetrackerapp;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -79,7 +82,7 @@ public class ShowAllData extends AppCompatActivity {
 
                 hashMap = new HashMap<>();
                 hashMap.put("id", "" + id);
-                hashMap.put("amount", "" + amount);
+                hashMap.put("amount", "" + Math.round(amount));
                 hashMap.put("reason", "" + reason);
                 hashMap.put("time", "" + time);
                 arrayList.add(hashMap);
@@ -89,7 +92,7 @@ public class ShowAllData extends AppCompatActivity {
             listView.setAdapter(myAdapter);
 
         } else {
-            showAllDataTitle.append("\n\n No Data Found");
+            showAllDataTitle.setText("No Data Found");
         }
 
 
@@ -131,10 +134,12 @@ public class ShowAllData extends AppCompatActivity {
 
 
             TextView spendingTitle, spendingAmount, timeAndDate;
+            LinearLayout btnDelete;
 
             spendingTitle = view.findViewById(R.id.spendingTitle);
             spendingAmount = view.findViewById(R.id.spendingAmount);
             timeAndDate = view.findViewById(R.id.timeAndDate);
+            btnDelete = view.findViewById(R.id.btnDelete);
 
             hashMap = arrayList.get(position);
             String id = hashMap.get("id");
@@ -144,11 +149,11 @@ public class ShowAllData extends AppCompatActivity {
 
 
             spendingTitle.setText(reason);
-            if (Expense){
-                spendingAmount.setText("-"+ amount);
+            if (Expense) {
+                spendingAmount.setText("-" + amount);
 
-            }else {
-                spendingAmount.setText("+"+ amount);
+            } else {
+                spendingAmount.setText("+" + amount);
             }
 
             // Convert timestamp to human-readable date and time
@@ -158,6 +163,21 @@ public class ShowAllData extends AppCompatActivity {
 
             // Display formatted date and time
             timeAndDate.setText(formattedDate);
+
+            // Delete Item
+
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Expense) {
+                        dbHelper.deleteExpense(id);
+                    } else {
+                        dbHelper.deleteIncome(id);
+                    }
+
+                    loadData();
+                }
+            });
 
             return view;
         }
