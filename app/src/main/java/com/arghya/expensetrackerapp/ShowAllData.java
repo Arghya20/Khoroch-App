@@ -1,6 +1,8 @@
 package com.arghya.expensetrackerapp;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -166,16 +168,28 @@ public class ShowAllData extends AppCompatActivity {
 
             // Delete Item
 
+            // Delete Item with confirmation dialog
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Expense) {
-                        dbHelper.deleteExpense(id);
-                    } else {
-                        dbHelper.deleteIncome(id);
-                    }
-
-                    loadData();
+                    // Create an AlertDialog to confirm deletion
+                    new AlertDialog.Builder(ShowAllData.this)
+                            .setTitle("Delete Confirmation")
+                            .setMessage("Are you sure you want to delete this record?")
+                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Perform deletion
+                                    if (Expense) {
+                                        dbHelper.deleteExpense(id);
+                                    } else {
+                                        dbHelper.deleteIncome(id);
+                                    }
+                                    // Refresh data
+                                    loadData();
+                                }
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
                 }
             });
 
