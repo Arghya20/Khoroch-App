@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -173,11 +174,23 @@ public class ShowAllData extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // Create an AlertDialog to confirm deletion
-                    new AlertDialog.Builder(ShowAllData.this)
-                            .setTitle("Delete Confirmation")
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ShowAllData.this);
+                    builder.setTitle("Delete Confirmation")
                             .setMessage("Are you sure you want to delete this record?")
-                            .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
+                            .setNegativeButton("Cancel", null);
+
+                    // Set the positive button with red text
+                    builder.setPositiveButton("Delete", null);
+                    AlertDialog dialog = builder.create();
+                    dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialogInterface) {
+                            // Get the delete button and set its text color to red
+                            Button deleteButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                            deleteButton.setTextColor(Color.RED);
+                            deleteButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
                                     // Perform deletion
                                     if (Expense) {
                                         dbHelper.deleteExpense(id);
@@ -186,10 +199,12 @@ public class ShowAllData extends AppCompatActivity {
                                     }
                                     // Refresh data
                                     loadData();
+                                    dialog.dismiss();
                                 }
-                            })
-                            .setNegativeButton("Cancel", null)
-                            .show();
+                            });
+                        }
+                    });
+                    dialog.show();
                 }
             });
 
