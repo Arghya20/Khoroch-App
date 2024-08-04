@@ -2,6 +2,7 @@ package com.arghya.expensetrackerapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,10 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout showAllIncome, showAllExpense;
     LinearLayout addIncome, addExpense;
     DatabaseHelper dbHelper;
+
+    double prevTotalIncome = 0;
+    double prevTotalExpense = 0;
+    double prevTotalBalance = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,18 +74,41 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void TotalIncome() {
-        totalIncome.setText("₹" + Math.round(dbHelper.getTotalIncome()));
+        double newTotalIncome = dbHelper.getTotalIncome();
+        totalIncome.setText("₹" + Math.round(newTotalIncome));
+        prevTotalIncome = newTotalIncome;
     }
 
     public void TotalExpense() {
-        totalExpense.setText("₹" + Math.round(dbHelper.getTotalExpense()));
+        double newTotalExpense = dbHelper.getTotalExpense();
+        totalExpense.setText("₹" + Math.round(newTotalExpense));
+        prevTotalExpense = newTotalExpense;
     }
 
     public void TotalBalance() {
-        double totalAmount = dbHelper.getTotalIncome() - dbHelper.getTotalExpense();
-        totalBalance.setText("₹" + Math.round(totalAmount));
+        double newTotalIncome = dbHelper.getTotalIncome();
+        double newTotalExpense = dbHelper.getTotalExpense();
+        double newTotalBalance = newTotalIncome - newTotalExpense;
+
+        totalBalance.setText("₹" + Math.round(newTotalBalance));
+
+        // Animate the balance change
+        countAnim((int) prevTotalBalance, (int) newTotalBalance);
+
+        // Update previous total balance
+        prevTotalBalance = newTotalBalance;
     }
 
+    private void countAnim(int fromValue, int toValue) {
+        ValueAnimator animator = ValueAnimator.ofInt(fromValue, toValue);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                totalBalance.setText("₹" + animation.getAnimatedValue().toString());
+            }
+        });
+        animator.setDuration(1000); // duration of the animation
+        animator.start();
+    }
     @Override
     protected void onResume() {
         super.onPostResume();

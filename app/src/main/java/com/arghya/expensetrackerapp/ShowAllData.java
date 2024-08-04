@@ -153,10 +153,10 @@ public class ShowAllData extends AppCompatActivity {
 
             spendingTitle.setText(reason);
             if (Expense) {
-                spendingAmount.setText("-" + amount);
+                spendingAmount.setText("- ₹" + amount);
 
             } else {
-                spendingAmount.setText("+" + amount);
+                spendingAmount.setText("+ ₹" + amount);
             }
 
             // Convert timestamp to human-readable date and time
